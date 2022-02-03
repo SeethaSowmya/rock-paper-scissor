@@ -58,12 +58,12 @@ class Display extends Component {
 
   GenerateRandom = () => {
     const num = Math.floor(Math.random() * choicesList.length)
-    this.setState({computerCardUrl: choicesList[num].imageUrl})
-    return choicesList[num].id
+    return num
   }
 
   CardName = event => {
-    const CompName = this.GenerateRandom()
+    const s = this.GenerateRandom()
+    const CompName = choicesList[s].id
     const UserChoice = event.target.id
     console.log(UserChoice, '*', CompName, '*')
 
@@ -74,6 +74,7 @@ class Display extends Component {
         status: variable,
         output: true,
         userImgUrl: choicesList[0].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
       })
     } else if (CompName === choicesList[1].id) {
       variable = 'YOU WON'
@@ -82,6 +83,7 @@ class Display extends Component {
         output: true,
         status: variable,
         userImgUrl: choicesList[0].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
       }))
     } else if (CompName === choicesList[2].id) {
       variable = 'YOU LOSE'
@@ -90,44 +92,14 @@ class Display extends Component {
         output: true,
         status: variable,
         userImgUrl: choicesList[0].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
       }))
     }
   }
 
   CardNameScissor = event => {
-    const CompName = this.GenerateRandom()
-    const UserChoice = event.target.id
-    console.log(UserChoice, '*', CompName, '*')
-
-    let variable = ''
-    if (UserChoice === CompName) {
-      variable = 'IT IS DRAW'
-      this.setState({
-        status: variable,
-        output: true,
-        userImgUrl: choicesList[1].imageUrl,
-      })
-    } else if (CompName === choicesList[2].id) {
-      variable = 'YOU WON'
-      this.setState(prevState => ({
-        score: prevState.score + 1,
-        output: true,
-        status: variable,
-        userImgUrl: choicesList[1].imageUrl,
-      }))
-    } else if (CompName === choicesList[1].id) {
-      variable = 'YOU LOSE'
-      this.setState(prevState => ({
-        score: prevState.score - 1,
-        output: true,
-        status: variable,
-        userImgUrl: choicesList[1].imageUrl,
-      }))
-    }
-  }
-
-  CardNamePaper = event => {
-    const CompName = this.GenerateRandom()
+    const s = this.GenerateRandom()
+    const CompName = choicesList[s].id
     const UserChoice = event.target.id
 
     let variable = ''
@@ -136,7 +108,8 @@ class Display extends Component {
       this.setState({
         status: variable,
         output: true,
-        userImgUrl: choicesList[2].imageUrl,
+        userImgUrl: choicesList[1].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
       })
     } else if (CompName === choicesList[0].id) {
       variable = 'YOU WON'
@@ -144,6 +117,42 @@ class Display extends Component {
         score: prevState.score + 1,
         output: true,
         status: variable,
+        userImgUrl: choicesList[1].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
+      }))
+    } else if (CompName === choicesList[2].id) {
+      variable = 'YOU LOSE'
+      this.setState(prevState => ({
+        score: prevState.score - 1,
+        output: true,
+        status: variable,
+        userImgUrl: choicesList[1].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
+      }))
+    }
+  }
+
+  CardNamePaper = event => {
+    const s = this.GenerateRandom()
+    const CompName = choicesList[s].id
+    const UserChoice = event.target.id
+
+    let variable = ''
+    if (UserChoice === CompName) {
+      variable = 'IT IS DRAW'
+      this.setState({
+        status: variable,
+        output: true,
+        userImgUrl: choicesList[2].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
+      })
+    } else if (CompName === choicesList[0].id) {
+      variable = 'YOU WON'
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+        output: true,
+        status: variable,
+        computerCardUrl: choicesList[s].imageUrl,
         userImgUrl: choicesList[2].imageUrl,
       }))
     } else if (CompName === choicesList[1].id) {
@@ -153,6 +162,7 @@ class Display extends Component {
         output: true,
         status: variable,
         userImgUrl: choicesList[2].imageUrl,
+        computerCardUrl: choicesList[s].imageUrl,
       }))
     }
   }
@@ -190,7 +200,7 @@ class Display extends Component {
                   />
                 </Button>
                 <Button
-                  data-testid="paperButton"
+                  data-testid="scissorsButton"
                   type="button"
                   onClick={this.CardNameScissor}
                 >
@@ -203,7 +213,7 @@ class Display extends Component {
               </RowOne>
               <RowTwo>
                 <Button
-                  data-testid="scissorsButton"
+                  data-testid="paperButton"
                   type="button"
                   onClick={this.CardNamePaper}
                 >

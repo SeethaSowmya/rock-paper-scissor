@@ -70,13 +70,16 @@ export const Image = styled.img`
   margin-left: 10px;
   margin-right: 10px;
 `
-export const Img = styled(Image)`
+export const Img = styled.img`
   margin-left: 0px;
+  width: 90px;
+  height: 80px;
   margin-right: 10px;
 `
 export const Button = styled.button`
   background-color: transparent;
   border-width: 0px;
+  cursor: pointer;
 `
 export const PlayButton = styled.button`
   background-color: #ffffff;
